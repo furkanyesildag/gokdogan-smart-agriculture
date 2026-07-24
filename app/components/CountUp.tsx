@@ -3,8 +3,39 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Görünür olunca 0'dan hedefe sayan istatistik. cubic ease-out, 1.3 sn.
+ * Odometer-tarzı "kayan" istatistik. Görünür olunca her rakam kendi
+ * dikey slotunda hedefe kayar (CSS transform, GPU'da). Hafif stagger ile
+ * mekanik sayaç hissi. Reduced-motion'da anında hedefe oturur.
  */
+function Digit({ d, delay }: { d: number; delay: number }) {
+  return (
+    <span
+      style={{
+        display: "inline-block",
+        height: "1em",
+        overflow: "hidden",
+        verticalAlign: "bottom",
+      }}
+    >
+      <span
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          transform: `translateY(-${d}em)`,
+          transition: "transform 1.15s cubic-bezier(0.22,1,0.36,1)",
+          transitionDelay: `${delay}s`,
+        }}
+      >
+        {Array.from({ length: 10 }).map((_, n) => (
+          <span key={n} style={{ height: "1em", lineHeight: "1em" }}>
+            {n}
+          </span>
+        ))}
+      </span>
+    </span>
+  );
+}
+
 export default function CountUp({
   target,
   suffix = "",
@@ -17,64 +48,41 @@ export default function CountUp({
   delay?: number;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [value, setValue] = useState(0);
-  const started = useRef(false);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-
-    const run = () => {
-      if (started.current) return;
-      started.current = true;
-      const reduce = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-      if (reduce) {
-        setValue(target);
-        return;
-      }
-      const dur = 1300;
-      const t0 = performance.now();
-      const tick = (now: number) => {
-        const p = Math.min(1, (now - t0) / dur);
-        setValue(Math.round((1 - Math.pow(1 - p, 3)) * target));
-        if (p < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    };
-
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
             el.classList.add("is-visible");
-            run();
+            setShow(true);
             io.unobserve(e.target);
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.4 }
     );
     io.observe(el);
     const fallback = setTimeout(() => {
       el.classList.add("is-visible");
-      run();
+      setShow(true);
     }, 3200);
     return () => {
       io.disconnect();
       clearTimeout(fallback);
     };
-  }, [target]);
+  }, []);
+
+  const digits = String(target).split("").map(Number);
 
   return (
     <div
       ref={ref}
       className="reveal card"
-      style={{
-        transitionDelay: delay ? `${delay}s` : undefined,
-        padding: 28,
-      }}
+      style={{ transitionDelay: delay ? `${delay}s` : undefined, padding: 28 }}
     >
       <div
         className="display"
@@ -82,10 +90,14 @@ export default function CountUp({
           fontSize: "clamp(34px,4vw,52px)",
           color: "var(--accent-ink)",
           lineHeight: 1,
+          display: "flex",
+          alignItems: "flex-end",
         }}
       >
-        {value}
-        {suffix}
+        {digits.map((d, i) => (
+          <Digit key={i} d={show ? d : 0} delay={0.06 * i} />
+        ))}
+        <span>{suffix}</span>
       </div>
       <div
         style={{

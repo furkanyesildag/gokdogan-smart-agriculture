@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ThemeToggle from "./ThemeToggle";
 
 const LINKS = [
@@ -13,9 +13,28 @@ const LINKS = [
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // scroll-shrink: hero'yu geçince nav kompaktlaşır
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 40);
+        raf = 0;
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
 
   return (
-    <nav className="nav-shell">
+    <nav className="nav-shell" data-scrolled={scrolled}>
       <a
         href="#top"
         style={{
@@ -27,6 +46,7 @@ export default function Nav() {
         onClick={() => setOpen(false)}
       >
         <span
+          className="nav-logo"
           style={{
             display: "grid",
             placeItems: "center",

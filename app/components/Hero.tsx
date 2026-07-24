@@ -9,9 +9,8 @@ export default function Hero() {
         position: "relative",
         zIndex: 1,
         overflow: "hidden",
-        background:
-          "radial-gradient(130% 100% at 55% 0%,#0d1c24,#070c10 75%)",
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        background: "var(--hero-bg)",
+        borderBottom: "1px solid var(--hair)",
       }}
     >
       <SoilCanvas />
@@ -19,8 +18,7 @@ export default function Hero() {
         style={{
           position: "absolute",
           inset: 0,
-          background:
-            "linear-gradient(90deg,rgba(7,12,16,0.94) 0%,rgba(7,12,16,0.78) 32%,rgba(7,12,16,0.2) 62%,rgba(7,12,16,0) 82%)",
+          background: "var(--hero-veil)",
           pointerEvents: "none",
         }}
       />
@@ -31,7 +29,7 @@ export default function Hero() {
           right: 0,
           bottom: 0,
           height: 130,
-          background: "linear-gradient(rgba(7,12,16,0),rgba(7,12,16,0.8))",
+          background: "var(--hero-veil-b)",
           pointerEvents: "none",
         }}
       />
@@ -55,12 +53,12 @@ export default function Hero() {
             alignItems: "center",
             gap: 9,
             padding: "7px 14px",
-            border: "1px solid rgba(90,200,220,0.4)",
+            border: "1px solid var(--hero-eyebrow-border)",
             borderRadius: 99,
             fontFamily: "var(--font-mono), monospace",
             fontSize: 12,
             letterSpacing: "0.06em",
-            color: "#5fd0e4",
+            color: "var(--hero-eyebrow)",
             marginBottom: 26,
           }}
         >
@@ -69,7 +67,7 @@ export default function Hero() {
               width: 7,
               height: 7,
               borderRadius: "50%",
-              background: "#3ac6de",
+              background: "var(--hero-accent)",
               animation: "blink 1.8s infinite",
             }}
           />
@@ -82,11 +80,11 @@ export default function Hero() {
             lineHeight: 1,
             margin: "0 0 24px",
             textWrap: "balance",
-            color: "#f2f7f9",
+            color: "var(--hero-text)",
             maxWidth: 820,
           }}
         >
-          Toprağı <span style={{ color: "#3ac6de" }}>okuyan</span>, tarımı
+          Toprağı <span style={{ color: "var(--hero-accent)" }}>okuyan</span>, tarımı
           yeniden tasarlayan teknoloji.
         </h1>
         <div
@@ -98,33 +96,33 @@ export default function Hero() {
             gap: 12,
             fontSize: 12.5,
             letterSpacing: "0.12em",
-            color: "#8ea6ad",
+            color: "var(--hero-pipe)",
             margin: "0 0 28px",
             textTransform: "uppercase",
           }}
         >
           <span>Otonom kara aracı</span>
-          <span style={{ color: "#3f5158" }} aria-hidden>
+          <span style={{ color: "var(--hero-sep)" }} aria-hidden>
             |
           </span>
           <span>Uydu platformu</span>
-          <span style={{ color: "#3f5158" }} aria-hidden>
+          <span style={{ color: "var(--hero-sep)" }} aria-hidden>
             |
           </span>
-          <span style={{ color: "#5fd0e4" }}>Tek ekosistem</span>
+          <span style={{ color: "var(--hero-eyebrow)" }}>Tek ekosistem</span>
         </div>
         <p
           style={{
             fontSize: "clamp(16px,1.5vw,19px)",
             lineHeight: 1.6,
-            color: "#a8b6bd",
+            color: "var(--hero-muted)",
             maxWidth: 560,
             margin: "0 0 36px",
             textWrap: "pretty",
           }}
         >
           Yerli ve özgün yapay zekâ sistemlerimizle üretiyoruz. Otonom kara
-          aracımız <b style={{ color: "#f2f7f9" }}>Porsuk</b>, tarlayı tek
+          aracımız <b style={{ color: "var(--hero-text)" }}>Porsuk</b>, tarlayı tek
           başına gezer, toprağı sensörleriyle analiz eder ve neyin
           ekilebileceğine karar verir.
         </p>
@@ -152,7 +150,7 @@ export default function Hero() {
             <div key={small}>
               <div
                 className="display"
-                style={{ fontSize: 26, color: "#f2f7f9" }}
+                style={{ fontSize: 26, color: "var(--hero-text)" }}
               >
                 {big}
               </div>
@@ -160,7 +158,7 @@ export default function Hero() {
                 className="mono"
                 style={{
                   fontSize: 12,
-                  color: "#7d99a3",
+                  color: "var(--hero-dim)",
                   letterSpacing: "0.03em",
                 }}
               >
@@ -183,13 +181,13 @@ export default function Hero() {
           fontFamily: "var(--font-mono), monospace",
           fontSize: 10.5,
           letterSpacing: "0.06em",
-          color: "#8ca8b2",
+          color: "var(--hero-pipe)",
           pointerEvents: "none",
           textAlign: "right",
           alignItems: "flex-end",
         }}
       >
-        <span style={{ color: "#9fb3ba", letterSpacing: "0.09em" }}>
+        <span style={{ color: "var(--hero-dim)", letterSpacing: "0.09em" }}>
           PORSUK ÇIKTISI · TOPRAK VERİM HARİTASI
         </span>
         <span

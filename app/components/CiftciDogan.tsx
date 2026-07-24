@@ -23,11 +23,11 @@ const CARDS = [
 ];
 
 const SOURCES = [
-  { name: "Sentinel-2", tag: "OPTİK UYDU", detail: "NDVI · NDMI · RVI · SAVI · EVI indeksleri" },
-  { name: "Sentinel-1", tag: "RADAR", detail: "Bulutlu günde bile ölçüm; optik veri şüpheliyse çapraz doğrulama" },
-  { name: "Hava", tag: "METEOROLOJİ", detail: "ERA5 · NASA POWER · Open-Meteo · MGM" },
-  { name: "Toprak", tag: "PROFİL", detail: "SoilGrids parsel profilleri" },
-  { name: "Piyasa", tag: "FİYAT", detail: "TMO & EPDK canlı fiyatları" },
+  { name: "Optik Uydu", tag: "GÖRÜNTÜ", detail: "Bitki sağlığı ve vejetasyon analizi" },
+  { name: "Radar Uydu", tag: "RADAR", detail: "Bulutlu havada bile kesintisiz ölçüm ve çapraz doğrulama" },
+  { name: "Hava", tag: "METEOROLOJİ", detail: "Güncel hava ve iklim verisi" },
+  { name: "Toprak", tag: "PROFİL", detail: "Parsel bazında toprak profili" },
+  { name: "Piyasa", tag: "FİYAT", detail: "Güncel ürün fiyatları" },
 ];
 
 export default function CiftciDogan() {
@@ -146,13 +146,13 @@ export default function CiftciDogan() {
                     color: "var(--faint2)",
                   }}
                 >
-                  NDVI 0.45
+                  vejetasyon&nbsp;&nbsp;0.45
                   <br />
-                  NDMI 0.12
+                  nem&nbsp;indeksi&nbsp;&nbsp;0.12
                   <br />
-                  RVI&nbsp;&nbsp;3.8
+                  biyokütle&nbsp;&nbsp;3.8
                   <br />
-                  LST&nbsp;&nbsp;31°C
+                  yüzey&nbsp;sıc.&nbsp;&nbsp;31°C
                 </div>
                 <div
                   style={{
@@ -317,7 +317,7 @@ export default function CiftciDogan() {
               biyokütle olduğunu doğruluyor — 15–20 Haziran&apos;daki optik
               veriler büyük olasılıkla güvenilir değil.{" "}
               <b style={{ color: "var(--text)" }}>
-                Arpa TMO fiyatı: 11.514 TRY/ton
+                Arpa piyasa fiyatı: 11.514 TRY/ton
               </b>{" "}
               — hasat zamanlamasını değerlendirin.
             </div>
@@ -411,8 +411,7 @@ export default function CiftciDogan() {
                 borderRadius: 20,
                 overflow: "hidden",
                 border: "1px solid var(--border)",
-                background:
-                  "radial-gradient(120% 100% at 50% 0%,#0a1820,#060c11 75%)",
+                background: "var(--scene-bg2)",
                 minHeight: 400,
               }}
             >

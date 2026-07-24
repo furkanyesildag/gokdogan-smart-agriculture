@@ -14,11 +14,11 @@ const FAQS = [
   },
   {
     q: "Teşhisler ne sıklıkla güncelleniyor?",
-    a: "Her gün. Sentinel-2 optik ve Sentinel-1 radar geçişleri, güncel hava ve piyasa verisiyle birleştirilir; bulutlu günlerde radar ölçümleri devreye girer.",
+    a: "Her gün. Optik ve radar uydu geçişleri, güncel hava ve piyasa verisiyle birleştirilir; bulutlu günlerde radar ölçümleri devreye girer.",
   },
   {
-    q: '"NDVI 0.45" gibi değerleri yorumlamam gerekecek mi?',
-    a: "Hayır — farkımız tam burada. Ham indeksleri arka planda işler, size sade Türkçe bir teşhis ve somut bir eylem sunarız: \"48 saat içinde sulama yapın\" gibi.",
+    q: "Ham teknik değerleri yorumlamam gerekecek mi?",
+    a: "Hayır — farkımız tam burada. Ham teknik verileri arka planda işler, size sade Türkçe bir teşhis ve somut bir eylem sunarız: \"48 saat içinde sulama yapın\" gibi.",
   },
   {
     q: "Nasıl başlarım?",

@@ -29,7 +29,7 @@ export default function HeroTelemetry() {
   }, []);
 
   const sep = (
-    <span style={{ color: "#3f5158", padding: "0 2px" }} aria-hidden>
+    <span style={{ color: "var(--hero-sep)", padding: "0 2px" }} aria-hidden>
       ·
     </span>
   );
@@ -47,7 +47,7 @@ export default function HeroTelemetry() {
         fontFamily: "var(--font-mono), monospace",
         fontSize: 11,
         letterSpacing: "0.05em",
-        color: "#7d99a3",
+        color: "var(--hero-dim)",
         pointerEvents: "none",
         flexWrap: "wrap",
       }}
@@ -57,26 +57,26 @@ export default function HeroTelemetry() {
           width: 7,
           height: 7,
           borderRadius: "50%",
-          background: "#3ac6de",
-          boxShadow: "0 0 8px #3ac6de",
+          background: "var(--hero-accent)",
+          boxShadow: "0 0 8px var(--hero-accent)",
           animation: "blink 1.6s infinite",
           flex: "none",
         }}
       />
-      <span style={{ color: "#9fb3ba", letterSpacing: "0.08em" }}>
+      <span style={{ color: "var(--hero-pipe)", letterSpacing: "0.08em" }}>
         PORSUK · CANLI SAHA
       </span>
       {sep}
       <span>
-        <span style={{ color: "#5fd0e4" }}>39.78°N</span> 30.52°E
+        <span style={{ color: "var(--hero-eyebrow)" }}>39.78°N</span> 30.52°E
       </span>
       {sep}
       <span>
-        <span style={{ color: "#5fd0e4" }}>12</span> kanal · 40Hz
+        otonom · <span style={{ color: "var(--hero-eyebrow)" }}>aktif</span>
       </span>
       {sep}
       <span>
-        <span style={{ color: "#5fd0e4" }}>{ha.toFixed(1)}</span> ha/gün
+        <span style={{ color: "var(--hero-eyebrow)" }}>{ha.toFixed(1)}</span> ha/gün
       </span>
       {sep}
       <span suppressHydrationWarning>{clock}</span>

@@ -47,7 +47,7 @@ const SERVICES = [
   {
     code: "05",
     title: "Otomatik Dümenleme Sistemi",
-    desc: "Tarım makineleri için RTK hassasiyetinde otonom hat takibi; örtüşme ve atlamayı ortadan kaldırır.",
+    desc: "Tarım makineleri için santimetre hassasiyetinde otonom hat takibi; örtüşme ve atlamayı ortadan kaldırır.",
     points: [
       "Santimetre hassasiyetli hat takibi",
       "Örtüşme ve atlama kaybı yok",

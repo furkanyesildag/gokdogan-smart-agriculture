@@ -75,12 +75,60 @@ export default function Iletisim() {
                   fontSize: 11,
                   letterSpacing: "0.1em",
                   color: "var(--faint)",
-                  marginBottom: 5,
+                  marginBottom: 6,
                 }}
               >
                 MERKEZ
               </div>
-              <div style={{ fontSize: 16 }}>Eskişehir, Türkiye</div>
+              <div style={{ fontSize: 15.5, fontWeight: 600, marginBottom: 2 }}>
+                Gökdoğan Teknoloji San. ve Tic. A.Ş.
+              </div>
+              <div
+                style={{
+                  fontSize: 14,
+                  color: "var(--muted)",
+                  lineHeight: 1.55,
+                }}
+              >
+                Üniversiteler Mah., Şht. J. Astgm. Mustafa Tayyar Can Cd. No: 5,
+                06800 Çankaya / Ankara
+              </div>
+            </div>
+
+            {/* Harita + yol tarifi */}
+            <div
+              className="card"
+              style={{ padding: 0, borderRadius: 14, overflow: "hidden" }}
+            >
+              <iframe
+                title="Gökdoğan Teknoloji konumu"
+                src="https://maps.google.com/maps?q=G%C3%B6kdo%C4%9Fan%20Teknoloji%2C%20%C5%9Eht.%20J.%20Astgm.%20Mustafa%20Tayyar%20Can%20Cd.%20No%3A5%2C%2006800%20%C3%87ankaya%20Ankara&z=15&output=embed"
+                width="100%"
+                height={200}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                style={{ border: 0, display: "block", filter: "grayscale(0.2)" }}
+              />
+              <a
+                href="https://www.google.com/maps/dir/?api=1&destination=G%C3%B6kdo%C4%9Fan%20Teknoloji%2C%20%C5%9Eht.%20J.%20Astgm.%20Mustafa%20Tayyar%20Can%20Cd.%20No%3A5%2C%2006800%20%C3%87ankaya%20Ankara"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mono"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 10,
+                  padding: "13px 16px",
+                  fontSize: 13,
+                  letterSpacing: "0.04em",
+                  color: "var(--accent-ink)",
+                  borderTop: "1px solid var(--border)",
+                }}
+              >
+                <span>▸ YOL TARİFİ AL</span>
+                <span aria-hidden>→</span>
+              </a>
             </div>
           </div>
         </Reveal>
