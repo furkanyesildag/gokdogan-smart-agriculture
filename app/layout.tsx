@@ -60,9 +60,8 @@ export const metadata: Metadata = {
     description:
       "Toprağı okuyan, tarımı yeniden tasarlayan teknoloji. Yerli ve özgün AI sistemleri.",
   },
-  icons: {
-    icon: "/assets/gokdogan-eagle.jpg",
-  },
+  // favicon/apple-icon: app/icon.png · app/apple-icon.png · app/favicon.ico
+  // (Next.js App Router convention — gerçek Gökdoğan logosundan üretildi)
 };
 
 export const viewport: Viewport = {

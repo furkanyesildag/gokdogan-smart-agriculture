@@ -1,4 +1,5 @@
 import SoilCanvas from "./SoilCanvas";
+import HeroTelemetry from "./HeroTelemetry";
 
 export default function Hero() {
   return (
@@ -88,6 +89,30 @@ export default function Hero() {
           Toprağı <span style={{ color: "#3ac6de" }}>okuyan</span>, tarımı
           yeniden tasarlayan teknoloji.
         </h1>
+        <div
+          className="mono"
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            gap: 12,
+            fontSize: 12.5,
+            letterSpacing: "0.12em",
+            color: "#8ea6ad",
+            margin: "0 0 28px",
+            textTransform: "uppercase",
+          }}
+        >
+          <span>Otonom kara aracı</span>
+          <span style={{ color: "#3f5158" }} aria-hidden>
+            |
+          </span>
+          <span>Uydu platformu</span>
+          <span style={{ color: "#3f5158" }} aria-hidden>
+            |
+          </span>
+          <span style={{ color: "#5fd0e4" }}>Tek ekosistem</span>
+        </div>
         <p
           style={{
             fontSize: "clamp(16px,1.5vw,19px)",
@@ -145,32 +170,47 @@ export default function Hero() {
           ))}
         </div>
       </div>
+      {/* rover çıktısı lejantı — canvas'ın ürettiği renkli iz ne demek (EOSDA dersi) */}
       <div
+        className="hero-legend"
         style={{
           position: "absolute",
-          bottom: 18,
-          left: "clamp(20px,5vw,64px)",
+          top: "clamp(88px,12vh,132px)",
+          right: "clamp(20px,5vw,64px)",
           display: "flex",
-          alignItems: "center",
-          gap: 8,
+          flexDirection: "column",
+          gap: 7,
           fontFamily: "var(--font-mono), monospace",
-          fontSize: 11,
-          letterSpacing: "0.08em",
-          color: "#7d99a3",
+          fontSize: 10.5,
+          letterSpacing: "0.06em",
+          color: "#8ca8b2",
           pointerEvents: "none",
+          textAlign: "right",
+          alignItems: "flex-end",
         }}
       >
+        <span style={{ color: "#9fb3ba", letterSpacing: "0.09em" }}>
+          PORSUK ÇIKTISI · TOPRAK VERİM HARİTASI
+        </span>
         <span
-          style={{
-            width: 7,
-            height: 7,
-            borderRadius: "50%",
-            background: "#3ac6de",
-            animation: "blink 1.6s infinite",
-          }}
-        />
-        PORSUK · CANLI SAHA TARAMASI
+          style={{ display: "flex", alignItems: "center", gap: 8 }}
+          aria-hidden
+        >
+          <span>düşük</span>
+          <span
+            style={{
+              width: 88,
+              height: 7,
+              borderRadius: 2,
+              background:
+                "linear-gradient(90deg,rgb(255,128,40),rgb(120,175,150),rgb(23,199,224))",
+              boxShadow: "0 0 0 1px rgba(255,255,255,0.08)",
+            }}
+          />
+          <span>yüksek</span>
+        </span>
       </div>
+      <HeroTelemetry />
     </header>
   );
 }

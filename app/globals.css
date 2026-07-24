@@ -380,6 +380,11 @@ a:hover {
   }
 }
 
+/* hero rover lejantı — dar ekranda gizle (canvas alanı küçülüyor) */
+@media (max-width: 900px) {
+  .hero-legend { display: none; }
+}
+
 /* diamond bullet */
 .diamond {
   flex: none;
