@@ -23,7 +23,8 @@ const mono = IBM_Plex_Mono({
   display: "swap",
 });
 
-const SITE_URL = "https://gokdogan-teknoloji.vercel.app";
+// Vercel deploy sonrası gerçek domain ile güncelle (varsayılan proje domaini)
+const SITE_URL = "https://gokdogan-smart-agriculture.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
