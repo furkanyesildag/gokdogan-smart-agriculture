@@ -3,8 +3,42 @@
 import { useState } from "react";
 import Reveal from "./Reveal";
 
+type Status = "idle" | "loading" | "sent" | "error";
+
 export default function Iletisim() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    setStatus("loading");
+    setErrorMsg("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: fd.get("name"),
+          email: fd.get("email"),
+          message: fd.get("message"),
+          kvkk: fd.get("kvkk") === "on",
+        }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (res.ok) {
+        setStatus("sent");
+        form.reset();
+      } else {
+        setStatus("error");
+        setErrorMsg(json.error || "Bir hata oluştu. Lütfen tekrar deneyin.");
+      }
+    } catch {
+      setStatus("error");
+      setErrorMsg("Bağlantı hatası. Lütfen tekrar deneyin.");
+    }
+  }
 
   return (
     <section
@@ -138,7 +172,7 @@ export default function Iletisim() {
           className="card"
           style={{ padding: "clamp(24px,3vw,38px)", borderRadius: 20 }}
         >
-          {sent ? (
+          {status === "sent" ? (
             <div
               style={{
                 display: "flex",
@@ -183,14 +217,12 @@ export default function Iletisim() {
             </div>
           ) : (
             <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                setSent(true);
-              }}
+              onSubmit={handleSubmit}
               style={{ display: "flex", flexDirection: "column", gap: 16 }}
             >
               <div>
                 <label
+                  htmlFor="contact-name"
                   className="mono"
                   style={{
                     display: "block",
@@ -201,10 +233,18 @@ export default function Iletisim() {
                 >
                   AD SOYAD
                 </label>
-                <input required placeholder="Adınız" className="field" />
+                <input
+                  id="contact-name"
+                  name="name"
+                  required
+                  autoComplete="name"
+                  placeholder="Adınız"
+                  className="field"
+                />
               </div>
               <div>
                 <label
+                  htmlFor="contact-email"
                   className="mono"
                   style={{
                     display: "block",
@@ -216,14 +256,18 @@ export default function Iletisim() {
                   E-POSTA
                 </label>
                 <input
+                  id="contact-email"
+                  name="email"
                   required
                   type="email"
+                  autoComplete="email"
                   placeholder="ornek@firma.com"
                   className="field"
                 />
               </div>
               <div>
                 <label
+                  htmlFor="contact-message"
                   className="mono"
                   style={{
                     display: "block",
@@ -235,6 +279,8 @@ export default function Iletisim() {
                   MESAJINIZ
                 </label>
                 <textarea
+                  id="contact-message"
+                  name="message"
                   required
                   rows={4}
                   placeholder="Nasıl yardımcı olabiliriz?"
@@ -242,17 +288,70 @@ export default function Iletisim() {
                   style={{ resize: "vertical" }}
                 />
               </div>
+
+              <label
+                htmlFor="contact-kvkk"
+                style={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: 10,
+                  fontSize: 13,
+                  lineHeight: 1.5,
+                  color: "var(--muted)",
+                  cursor: "pointer",
+                }}
+              >
+                <input
+                  id="contact-kvkk"
+                  name="kvkk"
+                  type="checkbox"
+                  required
+                  style={{ marginTop: 3, accentColor: "var(--accent)", flex: "none" }}
+                />
+                <span>
+                  <a
+                    href="/gizlilik"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: "var(--accent-ink)" }}
+                  >
+                    KVKK Aydınlatma Metni
+                  </a>
+                  ni okudum; kişisel verilerimin iletişim amacıyla işlenmesini
+                  onaylıyorum.
+                </span>
+              </label>
+
+              {status === "error" && (
+                <div
+                  role="alert"
+                  style={{
+                    fontSize: 14,
+                    color: "var(--accent2-ink)",
+                    background: "oklch(0.62 0.19 40 / 0.1)",
+                    border: "1px solid oklch(0.62 0.19 40 / 0.3)",
+                    borderRadius: 10,
+                    padding: "10px 14px",
+                  }}
+                >
+                  {errorMsg}
+                </div>
+              )}
+
               <button
                 type="submit"
+                disabled={status === "loading"}
                 className="btn btn-primary"
                 style={{
                   justifyContent: "center",
                   padding: 15,
                   borderRadius: 11,
                   fontFamily: "var(--font-display), sans-serif",
+                  opacity: status === "loading" ? 0.7 : 1,
+                  cursor: status === "loading" ? "wait" : "pointer",
                 }}
               >
-                Gönder →
+                {status === "loading" ? "Gönderiliyor…" : "Gönder →"}
               </button>
             </form>
           )}

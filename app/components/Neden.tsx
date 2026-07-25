@@ -2,10 +2,10 @@ import Reveal from "./Reveal";
 import CountUp from "./CountUp";
 
 const STATS = [
-  { target: 70, suffix: "%", label: "2050'ye kadar gereken tarımsal üretim artışı" },
-  { target: 30, suffix: "%", label: "Hassas uygulama ile hedeflenen su tasarrufu" },
-  { target: 24, suffix: "/7", label: "Kesintisiz otonom saha operasyonu" },
-  { target: 100, suffix: "%", label: "Yerli ve özgün yazılım & yapay zekâ" },
+  { target: 70, prefix: "%", suffix: "", label: "2050'ye kadar gereken tarımsal üretim artışı" },
+  { target: 30, prefix: "%", suffix: "", label: "Hassas uygulama ile hedeflenen su tasarrufu" },
+  { target: 7, prefix: "", suffix: "/24", label: "Kesintisiz otonom saha operasyonu" },
+  { target: 100, prefix: "%", suffix: "", label: "Yerli ve özgün yazılım & yapay zekâ" },
 ];
 
 export default function Neden() {
@@ -62,6 +62,7 @@ export default function Neden() {
             <CountUp
               key={s.label}
               target={s.target}
+              prefix={s.prefix}
               suffix={s.suffix}
               label={s.label}
               delay={i * 0.08}

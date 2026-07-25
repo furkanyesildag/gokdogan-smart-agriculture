@@ -14,7 +14,7 @@ function Digit({ d, delay }: { d: number; delay: number }) {
         display: "inline-block",
         height: "1em",
         overflow: "hidden",
-        verticalAlign: "bottom",
+        verticalAlign: "baseline",
       }}
     >
       <span
@@ -27,7 +27,15 @@ function Digit({ d, delay }: { d: number; delay: number }) {
         }}
       >
         {Array.from({ length: 10 }).map((_, n) => (
-          <span key={n} style={{ height: "1em", lineHeight: "1em" }}>
+          <span
+            key={n}
+            style={{
+              height: "1em",
+              display: "grid",
+              placeItems: "center",
+              lineHeight: 1,
+            }}
+          >
             {n}
           </span>
         ))}
@@ -38,11 +46,13 @@ function Digit({ d, delay }: { d: number; delay: number }) {
 
 export default function CountUp({
   target,
+  prefix = "",
   suffix = "",
   label,
   delay = 0,
 }: {
   target: number;
+  prefix?: string;
   suffix?: string;
   label: string;
   delay?: number;
@@ -94,10 +104,11 @@ export default function CountUp({
           alignItems: "flex-end",
         }}
       >
+        {prefix && <span>{prefix}</span>}
         {digits.map((d, i) => (
           <Digit key={i} d={show ? d : 0} delay={0.06 * i} />
         ))}
-        <span>{suffix}</span>
+        {suffix && <span>{suffix}</span>}
       </div>
       <div
         style={{
