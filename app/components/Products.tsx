@@ -1,4 +1,9 @@
+"use client";
+
+import { useT } from "../i18n/LangProvider";
+
 export default function Products() {
+  const t = useT();
   return (
     <section
       className="section"
@@ -9,7 +14,7 @@ export default function Products() {
       }}
     >
       <div className="eyebrow" style={{ marginBottom: 20 }}>
-        // ÜRÜNLERİMİZ
+        {t.products.eyebrow}
       </div>
       <div
         style={{
@@ -48,7 +53,7 @@ export default function Products() {
                 color: "var(--accent-ink)",
               }}
             >
-              DONANIM · OTONOM İKA
+              {t.products.porsukTag}
             </span>
             <span className="mono" style={{ fontSize: 12, color: "var(--faint)" }}>
               PRS-01
@@ -72,8 +77,7 @@ export default function Products() {
               textWrap: "pretty",
             }}
           >
-            Tarlayı otonom gezen, toprağı sensörleriyle tarayan ve yapay zekâ
-            ile ekim kararı üreten insansız kara aracı.
+            {t.products.porsukDesc}
           </p>
           <span
             style={{
@@ -82,7 +86,7 @@ export default function Products() {
               color: "var(--accent-ink)",
             }}
           >
-            İncele →
+            {t.products.explore}
           </span>
         </a>
 
@@ -116,7 +120,7 @@ export default function Products() {
                 color: "var(--accent2-ink)",
               }}
             >
-              PLATFORM · ÇİFTÇİ ZEKÂSI
+              {t.products.ciftciTag}
             </span>
             <span
               style={{
@@ -156,8 +160,7 @@ export default function Products() {
               textWrap: "pretty",
             }}
           >
-            Uydu, hava, toprak ve piyasa verisini parsel bazında birleştirip
-            her gün sade Türkçe teşhis ve somut eylem üreten platform.
+            {t.products.ciftciDesc}
           </p>
           <span
             style={{
@@ -166,7 +169,7 @@ export default function Products() {
               color: "var(--accent2-ink)",
             }}
           >
-            İncele →
+            {t.products.explore}
           </span>
         </a>
       </div>

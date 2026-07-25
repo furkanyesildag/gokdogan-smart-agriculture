@@ -1,4 +1,9 @@
+"use client";
+
+import { useT } from "../i18n/LangProvider";
+
 export default function Footer() {
+  const t = useT();
   return (
     <footer
       className="section band"
@@ -56,8 +61,7 @@ export default function Footer() {
               margin: 0,
             }}
           >
-            Yapay zekâ destekli akıllı tarım ve otonom sistemler. Yerli ve özgün
-            geliştirme.
+            {t.footer.tagline}
           </p>
         </div>
         <div style={{ display: "flex", gap: 56, flexWrap: "wrap" }}>
@@ -73,16 +77,16 @@ export default function Footer() {
               className="mono"
               style={{ fontSize: 12, color: "var(--faint2)", marginBottom: 4 }}
             >
-              ÜRÜN
+              {t.footer.colProduct}
             </div>
             <a href="#porsuk" style={{ color: "var(--muted)" }}>
-              Porsuk
+              {t.footer.linkPorsuk}
             </a>
             <a href="#hizmetler" style={{ color: "var(--muted)" }}>
-              Hizmetler
+              {t.footer.linkHizmetler}
             </a>
             <a href="#neden" style={{ color: "var(--muted)" }}>
-              Neden Akıllı Tarım
+              {t.footer.linkNeden}
             </a>
           </div>
           <div
@@ -97,13 +101,13 @@ export default function Footer() {
               className="mono"
               style={{ fontSize: 12, color: "var(--faint2)", marginBottom: 4 }}
             >
-              KURUMSAL
+              {t.footer.colCompany}
             </div>
             <a href="#hakkimizda" style={{ color: "var(--muted)" }}>
-              Hakkımızda
+              {t.footer.linkHakkimizda}
             </a>
             <a href="#iletisim" style={{ color: "var(--muted)" }}>
-              İletişim
+              {t.footer.linkIletisim}
             </a>
           </div>
         </div>
@@ -122,8 +126,8 @@ export default function Footer() {
           color: "var(--faint2)",
         }}
       >
-        <span>© 2026 Gökdoğan Teknoloji. Tüm hakları saklıdır.</span>
-        <span className="mono">Türkiye&apos;de tasarlandı ve geliştirildi.</span>
+        <span>{t.footer.copyright}</span>
+        <span className="mono">{t.footer.madeIn}</span>
       </div>
     </footer>
   );

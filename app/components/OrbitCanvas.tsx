@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import { useTheme } from "./useTheme";
+import { useLang } from "../i18n/LangProvider";
+import { dict } from "../i18n/dict";
 
 const OPAL = {
   dark: {
@@ -47,9 +49,11 @@ const OPAL = {
 export default function OrbitCanvas() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const theme = useTheme();
+  const lang = useLang();
 
   useEffect(() => {
     const pal = OPAL[theme];
+    const L = dict[lang].canvas;
     const cv = canvasRef.current;
     if (!cv) return;
     const wrap = cv.parentElement;
@@ -79,9 +83,9 @@ export default function OrbitCanvas() {
       p: Math.random() * Math.PI * 2,
     }));
     const sats = [
-      { label: "OPTİK UYDU", rk: 1.16, speed: 0.052, ph: 0.15 },
-      { label: "RADAR UYDU", rk: 1.33, speed: 0.038, ph: 0.55 },
-      { label: "METEO AĞI", rk: 1.5, speed: 0.03, ph: 0.85 },
+      { label: L.orbitOptik, rk: 1.16, speed: 0.052, ph: 0.15 },
+      { label: L.orbitRadar, rk: 1.33, speed: 0.038, ph: 0.55 },
+      { label: L.orbitMeteo, rk: 1.5, speed: 0.03, ph: 0.85 },
     ];
 
     let raf = 0;
@@ -197,7 +201,7 @@ export default function OrbitCanvas() {
       ctx.font = "10px var(--font-mono), monospace";
       ctx.textAlign = "left";
       ctx.fillStyle = `rgba(${pal.fusLabel},0.95)`;
-      ctx.fillText("▸ TEK PARSELDE BİRLEŞİR", surfX + 14, surfY + 4);
+      ctx.fillText(L.orbitFusion, surfX + 14, surfY + 4);
 
       raf = requestAnimationFrame(draw);
     };
@@ -207,7 +211,7 @@ export default function OrbitCanvas() {
       cancelAnimationFrame(raf);
       ro.disconnect();
     };
-  }, [theme]);
+  }, [theme, lang]);
 
   return (
     <canvas

@@ -1,14 +1,12 @@
+"use client";
+
 import Reveal from "./Reveal";
 import CountUp from "./CountUp";
-
-const STATS = [
-  { target: 70, prefix: "%", suffix: "", label: "2050'ye kadar gereken tarımsal üretim artışı" },
-  { target: 30, prefix: "%", suffix: "", label: "Hassas uygulama ile hedeflenen su tasarrufu" },
-  { target: 7, prefix: "", suffix: "/24", label: "Kesintisiz otonom saha operasyonu" },
-  { target: 100, prefix: "%", suffix: "", label: "Yerli ve özgün yazılım & yapay zekâ" },
-];
+import { useT } from "../i18n/LangProvider";
 
 export default function Neden() {
+  const t = useT();
+  const STATS = t.neden.stats;
   return (
     <section
       id="neden"
@@ -22,7 +20,7 @@ export default function Neden() {
       <div className="container neden-grid">
         <Reveal>
           <div className="eyebrow" style={{ marginBottom: 16 }}>
-            // NEDEN
+            {t.neden.eyebrow}
           </div>
           <h2
             className="display"
@@ -33,8 +31,7 @@ export default function Neden() {
               textWrap: "balance",
             }}
           >
-            Dünyanın 2050&apos;de daha az kaynakla çok daha fazla üretmesi
-            gerekiyor.
+            {t.neden.h2}
           </h2>
           <p
             style={{
@@ -45,10 +42,7 @@ export default function Neden() {
               textWrap: "pretty",
             }}
           >
-            Artan nüfusun beslenme sorununu önlemek için tarımsal üretimin ciddi
-            biçimde artması gerekiyor. Biz bu dönüşümü; daha az su, daha az girdi
-            ve daha yüksek verimle mümkün kılan dijital ve otonom sistemlerle
-            sağlıyoruz.
+            {t.neden.p}
           </p>
         </Reveal>
         <div

@@ -1,19 +1,71 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
+import { useT, useLang } from "../i18n/LangProvider";
 
-const LINKS = [
-  { href: "#porsuk", label: "Porsuk" },
-  { href: "#ciftcidogan", label: "Çiftçi Doğan" },
-  { href: "#hizmetler", label: "Hizmetler" },
-  { href: "#neden", label: "Neden Akıllı Tarım", secondary: true },
-  { href: "#hakkimizda", label: "Hakkımızda", secondary: true },
-];
+/** TR | EN dil değiştirici — mono/teal nav diline uygun, mevcut yolu korur. */
+function LangSwitch() {
+  const lang = useLang();
+  const pathname = usePathname();
+  // /en... yolundaki kök segmenti çıkar; ana sayfa için "/" kalsın.
+  const base =
+    lang === "en" ? pathname.replace(/^\/en/, "") || "/" : pathname;
+  const trHref = base;
+  const enHref = base === "/" ? "/en" : `/en${base}`;
+
+  const item = (active: boolean): React.CSSProperties => ({
+    padding: "3px 7px",
+    borderRadius: 6,
+    color: active ? "var(--accent-ink)" : "var(--faint)",
+    background: active ? "oklch(0.7 0.11 214 / 0.12)" : "transparent",
+    fontWeight: active ? 600 : 500,
+    transition: "color 0.2s var(--ease)",
+  });
+
+  return (
+    <span
+      className="mono"
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 2,
+        fontSize: 12,
+        letterSpacing: "0.08em",
+        border: "1px solid var(--border2)",
+        borderRadius: 8,
+        padding: 2,
+      }}
+    >
+      <Link href={trHref} style={item(lang === "tr")} aria-current={lang === "tr"}>
+        TR
+      </Link>
+      <span aria-hidden style={{ color: "var(--border2)" }}>
+        |
+      </span>
+      <Link href={enHref} style={item(lang === "en")} aria-current={lang === "en"}>
+        EN
+      </Link>
+    </span>
+  );
+}
 
 export default function Nav() {
+  const t = useT();
+  const lang = useLang();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const home = lang === "en" ? "/en" : "/";
+  const LINKS = [
+    { href: "#porsuk", label: t.nav.porsuk },
+    { href: "#ciftcidogan", label: t.nav.ciftcidogan },
+    { href: "#hizmetler", label: t.nav.hizmetler },
+    { href: "#neden", label: t.nav.neden, secondary: true },
+    { href: "#hakkimizda", label: t.nav.hakkimizda, secondary: true },
+  ];
 
   // scroll-shrink: hero'yu geçince nav kompaktlaşır
   useEffect(() => {
@@ -116,16 +168,19 @@ export default function Nav() {
           </a>
         ))}
         <span className="nav-desktop-only">
+          <LangSwitch />
+        </span>
+        <span className="nav-desktop-only">
           <ThemeToggle />
         </span>
         <a href="#iletisim" className="btn btn-pill nav-desktop-only">
-          İletişime Geç
+          {t.nav.cta}
         </a>
 
         {/* Mobil: burger */}
         <button
           className="nav-burger"
-          aria-label={open ? "Menüyü kapat" : "Menüyü aç"}
+          aria-label={open ? t.nav.menuClose : t.nav.menuOpen}
           aria-expanded={open}
           onClick={() => setOpen((o) => !o)}
           style={{
@@ -208,20 +263,21 @@ export default function Nav() {
             style={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
-              gap: 16,
+              gap: 12,
               marginTop: 14,
             }}
           >
+            <LangSwitch />
             <ThemeToggle />
-            <a
-              href="#iletisim"
-              className="btn btn-pill"
-              onClick={() => setOpen(false)}
-            >
-              İletişime Geç
-            </a>
           </div>
+          <a
+            href="#iletisim"
+            className="btn btn-pill"
+            onClick={() => setOpen(false)}
+            style={{ marginTop: 12, justifyContent: "center" }}
+          >
+            {t.nav.cta}
+          </a>
         </div>
       )}
     </nav>

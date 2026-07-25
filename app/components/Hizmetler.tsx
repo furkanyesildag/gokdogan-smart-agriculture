@@ -2,71 +2,11 @@
 
 import { useState } from "react";
 import Reveal from "./Reveal";
-
-const SERVICES = [
-  {
-    code: "01",
-    title: "Yapay Zekâ Destekli Ziraat & Mahsul Analizi",
-    desc: "Toprak ve bitki verisini agent tabanlı modellerle işleyip her parsel için aksiyona dönüştürür; ham indeks değil, teşhis ve öneri sunar.",
-    points: [
-      "Parsel bazlı bitki sağlığı takibi",
-      "Stres ve hastalık riskinde erken uyarı",
-      "Sade Türkçe teşhis + eylem raporu",
-    ],
-  },
-  {
-    code: "02",
-    title: "Otonom Kara Aracı — Porsuk",
-    desc: "Sahayı insansız gezen, toprağı satır satır tarayan ve yapay zekâ ile ekim kararı üreten insansız kara aracımız.",
-    points: [
-      "Tam otonom saha taraması",
-      "Yerinde toprak profili çıkarımı",
-      "Parsel bazlı ekim uygunluk kararı",
-    ],
-  },
-  {
-    code: "03",
-    title: "Rekolte Tahmini",
-    desc: "Biyofiziksel modellerle makine öğrenmesini birleştirerek sezon boyunca güncellenen verim öngörüsü üretir.",
-    points: [
-      "Sezon içi güncellenen tahminler",
-      "Parsel ve bölge kırılımı",
-      "Hasat ve satış planlamasına doğrudan girdi",
-    ],
-  },
-  {
-    code: "04",
-    title: "Arazi Etüdü & 2D/3D Haritalama",
-    desc: "Parsel bazında detaylı arazi çıkarımı, sınır tespiti ve karar destek için dijital ikiz haritalar.",
-    points: [
-      "Yüksek çözünürlüklü 2D/3D haritalar",
-      "Sınır ve alan çıkarımı",
-      "Sulama ve tesviye planlamasına altlık",
-    ],
-  },
-  {
-    code: "05",
-    title: "Otomatik Dümenleme Sistemi",
-    desc: "Tarım makineleri için santimetre hassasiyetinde otonom hat takibi; örtüşme ve atlamayı ortadan kaldırır.",
-    points: [
-      "Santimetre hassasiyetli hat takibi",
-      "Örtüşme ve atlama kaybı yok",
-      "Yakıt ve girdi tasarrufu",
-    ],
-  },
-  {
-    code: "06",
-    title: "Eğitim & Belgelendirme",
-    desc: "İHA pilot eğitimi, ruhsatlandırma ve kurumlara özel operasyon programları.",
-    points: [
-      "Pilot belgesi kursları",
-      "Ruhsatlandırma danışmanlığı",
-      "Kurumsal eğitim programları",
-    ],
-  },
-];
+import { useT } from "../i18n/LangProvider";
 
 export default function Hizmetler() {
+  const t = useT();
+  const SERVICES = t.hizmetler.items;
   const [svc, setSvc] = useState(0);
   const active = SERVICES[svc];
 
@@ -83,7 +23,7 @@ export default function Hizmetler() {
     >
       <Reveal style={{ marginBottom: 44, maxWidth: 640 }}>
         <div className="eyebrow" style={{ marginBottom: 16 }}>
-          // HİZMETLER
+          {t.hizmetler.eyebrow}
         </div>
         <h2
           className="display"
@@ -94,7 +34,7 @@ export default function Hizmetler() {
             textWrap: "balance",
           }}
         >
-          Uçtan uca akıllı tarım çözümleri
+          {t.hizmetler.h2}
         </h2>
       </Reveal>
 
@@ -156,7 +96,7 @@ export default function Hizmetler() {
           }}
         >
           <div className="eyebrow" style={{ letterSpacing: "0.08em", marginBottom: 16 }}>
-            // ÇÖZÜM {active.code}
+            {t.hizmetler.solutionLabel} {active.code}
           </div>
           <h3
             className="display"
@@ -216,7 +156,7 @@ export default function Hizmetler() {
               color: "var(--accent-ink)",
             }}
           >
-            Bu çözümü konuşalım →
+            {t.hizmetler.cta}
           </a>
         </div>
       </Reveal>

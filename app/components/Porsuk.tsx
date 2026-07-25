@@ -3,44 +3,12 @@
 import { useState, useEffect, useRef } from "react";
 import Reveal from "./Reveal";
 import PorsukSahne from "./PorsukSahne";
-
-const STEPS = [
-  {
-    title: "Algıla",
-    tag: "01 · ALGILA",
-    heading: "Tarlayı satır satır tarar",
-    body: "Porsuk, sahaya girdiği andan itibaren otonom rota planına göre ilerler ve üzerindeki sensör dizisiyle toprağı sürekli ölçer.",
-    points: [
-      "Çoklu sensör + kamera füzyonu",
-      "Uydu bazlı hassas konumlama",
-      "Engelden kaçınma ve güvenli otonomi",
-    ],
-  },
-  {
-    title: "Analiz et",
-    tag: "02 · ANALİZ ET",
-    heading: "Yapay zekâ toprağı yorumlar",
-    body: "Toplanan ham veri, analiz agent'ında işlenir; toprağın besin değeri, nem ve verim potansiyeli gerçek zamanlı olarak modellenir.",
-    points: [
-      "pH, nem, besin ve organik madde çıkarımı",
-      "Verim ve uygunluk modelleri",
-      "Anomali ve risk tespiti",
-    ],
-  },
-  {
-    title: "Öner",
-    tag: "03 · ÖNER",
-    heading: "Ne ekileceğine karar verir",
-    body: "Karar agent'ı, analiz sonuçlarını değerlendirerek parsel bazında ekim önerisi ve uygulama planı üretir.",
-    points: [
-      "Parsel bazlı ürün önerisi",
-      "Girdi (gübre/su) optimizasyonu",
-      "İndirilebilir rapor ve harita çıktısı",
-    ],
-  },
-];
+import { useT } from "../i18n/LangProvider";
 
 export default function Porsuk() {
+  const t = useT();
+  const STEPS = t.porsuk.steps;
+  const rep = t.porsuk.report;
   const [step, setStep] = useState(0);
   const active = STEPS[step];
   const userTouched = useRef(false);
@@ -84,7 +52,7 @@ export default function Porsuk() {
       >
         <div>
           <div className="eyebrow" style={{ marginBottom: 14 }}>
-            // KAHRAMAN ÜRÜN
+            {t.porsuk.eyebrow}
           </div>
           <h2
             className="display"
@@ -107,8 +75,7 @@ export default function Porsuk() {
             textWrap: "pretty",
           }}
         >
-          Otonom insansız kara aracı. İnsan müdahalesi olmadan tarlayı gezer,
-          toprağı satır satır tarar ve yapay zekâ ile ekim kararını üretir.
+          {t.porsuk.intro}
         </p>
       </Reveal>
 
@@ -245,7 +212,7 @@ export default function Porsuk() {
             className="eyebrow"
             style={{ letterSpacing: "0.08em", marginBottom: 18 }}
           >
-            // ÖRNEK ÇIKTI · TOPRAK RAPORU
+            {rep.eyebrow}
           </div>
           <div
             style={{
@@ -293,7 +260,7 @@ export default function Porsuk() {
               <span
                 style={{ marginLeft: 8, fontSize: 12, color: "var(--muted)" }}
               >
-                porsuk_rapor.json — parsel #A14
+                {rep.file}
               </span>
             </div>
             <div
@@ -305,27 +272,29 @@ export default function Porsuk() {
               }}
             >
               <div>
-                <span style={{ color: "var(--faint)" }}>konum</span> :{" "}
+                <span style={{ color: "var(--faint)" }}>{rep.location}</span> :{" "}
                 <span style={{ color: "oklch(0.86 0.07 213)" }}>
                   39.78°N, 30.52°E
                 </span>
               </div>
               <div>
-                <span style={{ color: "var(--faint)" }}>pH</span> : 6.8{" "}
-                <span style={{ color: "oklch(0.82 0.1 213)" }}>◟ ideal</span>
+                <span style={{ color: "var(--faint)" }}>{rep.ph}</span> : 6.8{" "}
+                <span style={{ color: "oklch(0.82 0.1 213)" }}>◟ {rep.phNote}</span>
               </div>
               <div>
-                <span style={{ color: "var(--faint)" }}>nem</span> : %38{" "}
-                <span style={{ color: "oklch(0.82 0.09 200)" }}>◟ orta</span>
+                <span style={{ color: "var(--faint)" }}>{rep.moisture}</span> :{" "}
+                {rep.moistureVal}{" "}
+                <span style={{ color: "oklch(0.82 0.09 200)" }}>◟ {rep.moistureNote}</span>
               </div>
               <div>
-                <span style={{ color: "var(--faint)" }}>azot (N)</span> : 42 ppm
+                <span style={{ color: "var(--faint)" }}>{rep.nitrogen}</span> : 42 ppm
               </div>
               <div>
-                <span style={{ color: "var(--faint)" }}>fosfor (P)</span> : 28 ppm
+                <span style={{ color: "var(--faint)" }}>{rep.phosphorus}</span> : 28 ppm
               </div>
               <div>
-                <span style={{ color: "var(--faint)" }}>organik_madde</span> : %2.4
+                <span style={{ color: "var(--faint)" }}>{rep.organic}</span> :{" "}
+                {rep.organicVal}
               </div>
               <div
                 style={{
@@ -334,7 +303,7 @@ export default function Porsuk() {
                   borderTop: "1px dashed rgba(255,255,255,0.12)",
                 }}
               >
-                <span style={{ color: "var(--faint)" }}>ai_öneri</span> :
+                <span style={{ color: "var(--faint)" }}>{rep.aiRec}</span> :
               </div>
               <div
                 style={{
@@ -346,9 +315,11 @@ export default function Porsuk() {
                   color: "oklch(0.9 0.07 213)",
                 }}
               >
-                → Buğday (uygunluk %91)
-                <br />→ Alternatif: Arpa (%84)
-                <br />→ Uygulama: 20 kg/da azot takviyesi
+                {rep.recLine1}
+                <br />
+                {rep.recLine2}
+                <br />
+                {rep.recLine3}
               </div>
             </div>
           </div>

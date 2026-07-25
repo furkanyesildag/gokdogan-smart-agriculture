@@ -9,6 +9,8 @@
  * Mevcut teal/mono dilini kullanır. Reduced-motion'da animasyonlar durur.
  */
 
+import { useT } from "../i18n/LangProvider";
+
 const CY = "var(--sahne-cy)";
 const CY2 = "var(--sahne-cy2)";
 const FAINT = "var(--sahne-faint)";
@@ -73,6 +75,7 @@ function Frame({
 
 /* ============ 01 · ALGILA ============ */
 function SceneAlgila({ on }: { on: boolean }) {
+  const t = useT();
   // çevredeki tespit noktaları
   const pts = [
     [70, 120], [110, 90], [360, 110], [330, 150], [92, 200],
@@ -80,7 +83,7 @@ function SceneAlgila({ on }: { on: boolean }) {
     [200, 60], [250, 74], [155, 235], [285, 235],
   ];
   return (
-    <Frame tag="01 · ALGILA" hud="LIDAR · MULTİSPEKTRAL · ÇOKLU SENSÖR FÜZYONU">
+    <Frame tag={t.porsuk.steps[0].tag} hud={t.sahne.algilaHud}>
       <svg viewBox="0 0 440 340" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} aria-hidden>
         <defs>
           <radialGradient id="sc-lidar">
@@ -149,9 +152,9 @@ function SceneAlgila({ on }: { on: boolean }) {
 
         {/* sensör pin etiketleri */}
         {[
-          ["LIDAR", 220, 156, 220, 132, "middle"],
-          ["KAMERA", 262, 187, 330, 175, "start"],
-          ["TOPRAK PROBU", 220, 226, 150, 262, "end"],
+          [t.sahne.pinLidar, 220, 156, 220, 132, "middle"],
+          [t.sahne.pinKamera, 262, 187, 330, 175, "start"],
+          [t.sahne.pinToprak, 220, 226, 150, 262, "end"],
         ].map((l, i) => (
           <g key={i} className="mono">
             <line x1={l[1] as number} y1={l[2] as number} x2={l[3] as number} y2={l[4] as number} stroke={FAINT} strokeWidth="1" strokeDasharray="2 3" />
@@ -167,11 +170,15 @@ function SceneAlgila({ on }: { on: boolean }) {
 
 /* ============ 02 · ANALİZ ET ============ */
 function SceneAnaliz({ on }: { on: boolean }) {
+  const t = useT();
   const reads = [
-    ["pH", "6.8"], ["nem", "%38"], ["N", "42 ppm"], ["org.", "%2.4"],
+    ["pH", "6.8"],
+    [t.sahne.analizMoist, t.porsuk.report.moistureVal],
+    ["N", "42 ppm"],
+    ["org.", t.porsuk.report.organicVal],
   ];
   return (
-    <Frame tag="02 · ANALİZ ET" hud="EDGE AI · SAHADA GERÇEK ZAMANLI ANALİZ">
+    <Frame tag={t.porsuk.steps[1].tag} hud={t.sahne.analizHud}>
       <svg viewBox="0 0 440 340" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} aria-hidden>
         <defs>
           <radialGradient id="sc-chip">
@@ -241,8 +248,9 @@ function SceneAnaliz({ on }: { on: boolean }) {
 
 /* ============ 03 · ÖNER ============ */
 function SceneOner({ on }: { on: boolean }) {
+  const t = useT();
   return (
-    <Frame tag="03 · ÖNER" hud="öneri hazır · parsel #A14">
+    <Frame tag={t.porsuk.steps[2].tag} hud={t.sahne.onerHud}>
       <div
         style={{
           position: "absolute",
@@ -264,11 +272,11 @@ function SceneOner({ on }: { on: boolean }) {
             }}
           >
             <div className="mono" style={{ fontSize: 10.5, letterSpacing: "0.1em", color: CY, marginBottom: 8 }}>
-              ÖNERİLEN ÜRÜN
+              {t.sahne.onerLabel}
             </div>
             <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 12 }}>
-              <span className="display" style={{ fontSize: 30, color: "#f2f7f9" }}>Buğday</span>
-              <span className="display" style={{ fontSize: 26, color: CY2 }}>%91</span>
+              <span className="display" style={{ fontSize: 30, color: "#f2f7f9" }}>{t.sahne.onerCrop}</span>
+              <span className="display" style={{ fontSize: 26, color: CY2 }}>{t.sahne.onerScore}</span>
             </div>
             <div style={{ height: 6, borderRadius: 4, background: "rgba(255,255,255,0.08)", overflow: "hidden" }}>
               <div
@@ -295,8 +303,8 @@ function SceneOner({ on }: { on: boolean }) {
               marginBottom: 12,
             }}
           >
-            <span style={{ fontSize: 14, color: "var(--soft)" }}>Alternatif · Arpa</span>
-            <span className="mono" style={{ fontSize: 13, color: "#9fd8e6" }}>%84</span>
+            <span style={{ fontSize: 14, color: "var(--soft)" }}>{t.sahne.onerAltLabel}</span>
+            <span className="mono" style={{ fontSize: 13, color: "#9fd8e6" }}>{t.sahne.onerAltScore}</span>
           </div>
 
           {/* uygulama */}
@@ -310,7 +318,7 @@ function SceneOner({ on }: { on: boolean }) {
               gap: 8,
             }}
           >
-            <span style={{ color: CY2 }}>→</span> 20 kg/da azot takviyesi
+            <span style={{ color: CY2 }}>→</span> {t.sahne.onerAction}
           </div>
         </div>
       </div>

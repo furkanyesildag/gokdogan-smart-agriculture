@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import { useTheme } from "./useTheme";
+import { useLang } from "../i18n/LangProvider";
+import { dict } from "../i18n/dict";
 
 // Tema paleti — light modda açık zemine göre koyu izler/HUD.
 const PALETTES = {
@@ -54,9 +56,11 @@ const PALETTES = {
 export default function SoilCanvas() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const theme = useTheme();
+  const lang = useLang();
 
   useEffect(() => {
     const pal = PALETTES[theme];
+    const L = dict[lang].canvas;
     const cv = canvasRef.current;
     if (!cv) return;
     const wrap = cv.parentElement;
@@ -255,10 +259,10 @@ export default function SoilCanvas() {
       ctx.textAlign = "right";
       ctx.fillStyle = pal.hud1;
       ctx.fillText("pH " + (6.0 + v * 1.6).toFixed(1), W - 22, H - 120);
-      ctx.fillText("NEM %" + Math.round(28 + v * 26), W - 22, H - 104);
+      ctx.fillText(L.soilMoist + Math.round(28 + v * 26), W - 22, H - 104);
       ctx.fillText("N " + Math.round(20 + v * 42) + " ppm", W - 22, H - 88);
       ctx.fillStyle = pal.hud2;
-      ctx.fillText("TARANAN %" + pct, W - 22, H - 58);
+      ctx.fillText(L.soilScanned + pct, W - 22, H - 58);
       ctx.fillStyle = pal.hudBar;
       ctx.fillRect(W - 136, H - 50, 114, 3);
       ctx.fillStyle = pal.hudFill;
@@ -272,7 +276,7 @@ export default function SoilCanvas() {
       cancelAnimationFrame(raf);
       ro.disconnect();
     };
-  }, [theme]);
+  }, [theme, lang]);
 
   return (
     <canvas

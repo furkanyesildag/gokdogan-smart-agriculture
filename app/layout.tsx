@@ -45,7 +45,13 @@ export const metadata: Metadata = {
     "Gökdoğan Teknoloji",
   ],
   authors: [{ name: "Gökdoğan Teknoloji" }],
-  alternates: { canonical: SITE_URL },
+  alternates: {
+    canonical: SITE_URL,
+    languages: {
+      tr: SITE_URL,
+      en: `${SITE_URL}/en`,
+    },
+  },
   openGraph: {
     type: "website",
     locale: "tr_TR",

@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useT } from "../i18n/LangProvider";
 
 /**
  * Koyu/Aydınlık tema anahtarı. Durumu documentElement.dataset.theme üzerinden
  * yönetir ve localStorage'a yazar (layout'taki no-flash script ile eşleşir).
  */
 export default function ThemeToggle() {
+  const nav = useT().nav;
   const [theme, setTheme] = useState<"dark" | "light">("dark");
 
   useEffect(() => {
@@ -31,8 +33,8 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggle}
-      title="Tema değiştir"
-      aria-label={theme === "dark" ? "Aydınlık temaya geç" : "Koyu temaya geç"}
+      title={nav.themeTitle}
+      aria-label={theme === "dark" ? nav.themeToLight : nav.themeToDark}
       style={{
         display: "inline-flex",
         alignItems: "center",
@@ -66,7 +68,7 @@ export default function ThemeToggle() {
             "linear-gradient(90deg,currentColor 0 50%,transparent 50%)",
         }}
       />
-      {theme === "dark" ? "Aydınlık" : "Koyu"}
+      {theme === "dark" ? nav.themeLight : nav.themeDark}
     </button>
   );
 }

@@ -2,31 +2,11 @@
 
 import { useState } from "react";
 import Reveal from "./Reveal";
-
-const FAQS = [
-  {
-    q: "Porsuk nasıl çalışıyor, sürücü gerekiyor mu?",
-    a: "Hayır. Porsuk tamamen otonomdur: rota planını kendisi çıkarır, engelden kaçınır, sensörleriyle toprağı satır satır ölçer ve sonuçları yapay zekâ ile parsel raporuna dönüştürür.",
-  },
-  {
-    q: "Çiftçi Doğan için özel donanım almam gerekir mi?",
-    a: "Gerekmez. Çiftçi Doğan uydu tabanlıdır; parselinizi tanımlamanız yeterli. Teşhis ve eylem önerileri Telegram botu ve otomatik PDF raporlarıyla size ulaşır.",
-  },
-  {
-    q: "Teşhisler ne sıklıkla güncelleniyor?",
-    a: "Her gün. Optik ve radar uydu geçişleri, güncel hava ve piyasa verisiyle birleştirilir; bulutlu günlerde radar ölçümleri devreye girer.",
-  },
-  {
-    q: "Ham teknik değerleri yorumlamam gerekecek mi?",
-    a: "Hayır — farkımız tam burada. Ham teknik verileri arka planda işler, size sade Türkçe bir teşhis ve somut bir eylem sunarız: \"48 saat içinde sulama yapın\" gibi.",
-  },
-  {
-    q: "Nasıl başlarım?",
-    a: "İletişim formundan bize ulaşın; parselinizi birlikte tanımlayıp aynı hafta içinde ilk raporunuzu üretelim.",
-  },
-];
+import { useT } from "../i18n/LangProvider";
 
 export default function SSS() {
+  const t = useT();
+  const FAQS = t.sss.items;
   const [open, setOpen] = useState(-1);
 
   return (
@@ -40,7 +20,7 @@ export default function SSS() {
     >
       <Reveal style={{ marginBottom: 36 }}>
         <div className="eyebrow" style={{ marginBottom: 16 }}>
-          // SIK SORULANLAR
+          {t.sss.eyebrow}
         </div>
         <h2
           className="display"
@@ -50,7 +30,7 @@ export default function SSS() {
             margin: 0,
           }}
         >
-          Aklınızda kalanlar
+          {t.sss.h2}
         </h2>
       </Reveal>
 
@@ -144,10 +124,10 @@ export default function SSS() {
               marginBottom: 6,
             }}
           >
-            Sorunuz mu var?
+            {t.sss.ctaTitle}
           </div>
           <div style={{ fontSize: 15, color: "var(--muted)" }}>
-            Ekibimiz canlı demo ve teknik detaylar için hazır.
+            {t.sss.ctaDesc}
           </div>
         </div>
         <a
@@ -155,7 +135,7 @@ export default function SSS() {
           className="btn btn-primary"
           style={{ flex: "none" }}
         >
-          Uzmanla görüşün →
+          {t.sss.ctaBtn}
         </a>
       </Reveal>
     </section>

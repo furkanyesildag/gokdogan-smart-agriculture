@@ -2,10 +2,13 @@
 
 import { useState } from "react";
 import Reveal from "./Reveal";
+import { useT } from "../i18n/LangProvider";
 
 type Status = "idle" | "loading" | "sent" | "error";
 
 export default function Iletisim() {
+  const t = useT();
+  const c = t.iletisim;
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -32,11 +35,11 @@ export default function Iletisim() {
         form.reset();
       } else {
         setStatus("error");
-        setErrorMsg(json.error || "Bir hata oluştu. Lütfen tekrar deneyin.");
+        setErrorMsg(json.error || c.errorGeneric);
       }
     } catch {
       setStatus("error");
-      setErrorMsg("Bağlantı hatası. Lütfen tekrar deneyin.");
+      setErrorMsg(c.errorConn);
     }
   }
 
@@ -54,7 +57,7 @@ export default function Iletisim() {
       <div className="iletisim-grid">
         <Reveal>
           <div className="eyebrow" style={{ marginBottom: 16 }}>
-            // İLETİŞİM
+            {c.eyebrow}
           </div>
           <h2
             className="display"
@@ -65,7 +68,7 @@ export default function Iletisim() {
               textWrap: "balance",
             }}
           >
-            Sahayı birlikte geleceğe taşıyalım.
+            {c.h2}
           </h2>
           <p
             style={{
@@ -77,8 +80,7 @@ export default function Iletisim() {
               textWrap: "pretty",
             }}
           >
-            Porsuk ve akıllı tarım çözümlerimiz hakkında bilgi almak, iş birliği
-            ya da demo talebiniz için bize yazın.
+            {c.p}
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <a
@@ -95,7 +97,7 @@ export default function Iletisim() {
                   marginBottom: 5,
                 }}
               >
-                E-POSTA
+                {c.emailLabel}
               </div>
               <div style={{ fontSize: 16 }}>info@gokdoganlar.com</div>
             </a>
@@ -112,10 +114,10 @@ export default function Iletisim() {
                   marginBottom: 6,
                 }}
               >
-                MERKEZ
+                {c.hqLabel}
               </div>
               <div style={{ fontSize: 15.5, fontWeight: 600, marginBottom: 2 }}>
-                Gökdoğan Teknoloji San. ve Tic. A.Ş.
+                {c.company}
               </div>
               <div
                 style={{
@@ -124,8 +126,7 @@ export default function Iletisim() {
                   lineHeight: 1.55,
                 }}
               >
-                Üniversiteler Mah., Şht. J. Astgm. Mustafa Tayyar Can Cd. No: 5,
-                06800 Çankaya / Ankara
+                {c.address}
               </div>
             </div>
 
@@ -135,7 +136,7 @@ export default function Iletisim() {
               style={{ padding: 0, borderRadius: 14, overflow: "hidden" }}
             >
               <iframe
-                title="Gökdoğan Teknoloji konumu"
+                title={c.mapTitle}
                 src="https://maps.google.com/maps?q=G%C3%B6kdo%C4%9Fan%20Teknoloji%2C%20%C5%9Eht.%20J.%20Astgm.%20Mustafa%20Tayyar%20Can%20Cd.%20No%3A5%2C%2006800%20%C3%87ankaya%20Ankara&z=15&output=embed"
                 width="100%"
                 height={200}
@@ -160,7 +161,7 @@ export default function Iletisim() {
                   borderTop: "1px solid var(--border)",
                 }}
               >
-                <span>▸ YOL TARİFİ AL</span>
+                <span>{c.directions}</span>
                 <span aria-hidden>→</span>
               </a>
             </div>
@@ -202,7 +203,7 @@ export default function Iletisim() {
                 className="display"
                 style={{ fontSize: 22 }}
               >
-                Mesajınız alındı
+                {c.sentTitle}
               </div>
               <div
                 style={{
@@ -211,8 +212,7 @@ export default function Iletisim() {
                   maxWidth: 280,
                 }}
               >
-                En kısa sürede size geri dönüş yapacağız. İlginiz için
-                teşekkürler.
+                {c.sentDesc}
               </div>
             </div>
           ) : (
@@ -231,14 +231,14 @@ export default function Iletisim() {
                     marginBottom: 7,
                   }}
                 >
-                  AD SOYAD
+                  {c.nameLabel}
                 </label>
                 <input
                   id="contact-name"
                   name="name"
                   required
                   autoComplete="name"
-                  placeholder="Adınız"
+                  placeholder={c.namePlaceholder}
                   className="field"
                 />
               </div>
@@ -253,7 +253,7 @@ export default function Iletisim() {
                     marginBottom: 7,
                   }}
                 >
-                  E-POSTA
+                  {c.emailFieldLabel}
                 </label>
                 <input
                   id="contact-email"
@@ -261,7 +261,7 @@ export default function Iletisim() {
                   required
                   type="email"
                   autoComplete="email"
-                  placeholder="ornek@firma.com"
+                  placeholder={c.emailPlaceholder}
                   className="field"
                 />
               </div>
@@ -276,14 +276,14 @@ export default function Iletisim() {
                     marginBottom: 7,
                   }}
                 >
-                  MESAJINIZ
+                  {c.messageLabel}
                 </label>
                 <textarea
                   id="contact-message"
                   name="message"
                   required
                   rows={4}
-                  placeholder="Nasıl yardımcı olabiliriz?"
+                  placeholder={c.messagePlaceholder}
                   className="field"
                   style={{ resize: "vertical" }}
                 />
@@ -309,16 +309,16 @@ export default function Iletisim() {
                   style={{ marginTop: 3, accentColor: "var(--accent)", flex: "none" }}
                 />
                 <span>
+                  {c.kvkkPre}
                   <a
                     href="/gizlilik"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ color: "var(--accent-ink)" }}
                   >
-                    KVKK Aydınlatma Metni
+                    {c.kvkkLink}
                   </a>
-                  ni okudum; kişisel verilerimin iletişim amacıyla işlenmesini
-                  onaylıyorum.
+                  {c.kvkkPost}
                 </span>
               </label>
 
@@ -351,7 +351,7 @@ export default function Iletisim() {
                   cursor: status === "loading" ? "wait" : "pointer",
                 }}
               >
-                {status === "loading" ? "Gönderiliyor…" : "Gönder →"}
+                {status === "loading" ? c.sending : c.send}
               </button>
             </form>
           )}

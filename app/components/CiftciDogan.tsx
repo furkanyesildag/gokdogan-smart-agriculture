@@ -1,36 +1,17 @@
+"use client";
+
 import Reveal from "./Reveal";
 import OrbitCanvas from "./OrbitCanvas";
+import { useT } from "../i18n/LangProvider";
 
-const CARDS = [
-  {
-    n: "01",
-    accent: "var(--accent-ink)",
-    title: "Günlük teşhis",
-    desc: "Uydu, hava, toprak ve piyasa verisi tek parselde birleşir; her gün otomatik teşhis üretilir.",
-  },
-  {
-    n: "02",
-    accent: "var(--accent-ink)",
-    title: "Karar desteği",
-    desc: "Su stresi, hasat zamanlaması, hastalık riski ve münavebe kararlarında çiftçiye yön verir.",
-  },
-  {
-    n: "03",
-    accent: "var(--accent2-ink)",
-    title: "Otomatik ulaşım",
-    desc: "Sonuçlar Telegram botu ve otomatik PDF raporlarıyla doğrudan çiftçiye ulaşır.",
-  },
-];
-
-const SOURCES = [
-  { name: "Optik Uydu", tag: "GÖRÜNTÜ", detail: "Bitki sağlığı ve vejetasyon analizi" },
-  { name: "Radar Uydu", tag: "RADAR", detail: "Bulutlu havada bile kesintisiz ölçüm ve çapraz doğrulama" },
-  { name: "Hava", tag: "METEOROLOJİ", detail: "Güncel hava ve iklim verisi" },
-  { name: "Toprak", tag: "PROFİL", detail: "Parsel bazında toprak profili" },
-  { name: "Piyasa", tag: "FİYAT", detail: "Güncel ürün fiyatları" },
-];
+// Kart accent renkleri metinden bağımsız; dizideki sıraya göre atanır.
+const CARD_ACCENTS = ["var(--accent-ink)", "var(--accent-ink)", "var(--accent2-ink)"];
 
 export default function CiftciDogan() {
+  const t = useT();
+  const c = t.ciftci;
+  const CARDS = c.cards;
+  const SOURCES = c.sources;
   return (
     <section
       id="ciftcidogan"
@@ -71,7 +52,7 @@ export default function CiftciDogan() {
           </span>
           <div>
             <div className="eyebrow eyebrow--2" style={{ marginBottom: 7 }}>
-              // ÇİFTÇİ ZEKÂ PLATFORMU
+              {c.eyebrow}
             </div>
             <h2
               className="display"
@@ -97,10 +78,9 @@ export default function CiftciDogan() {
             textWrap: "pretty",
           }}
         >
-          Hassas tarım için bir çiftçi zekâ platformu. Uydu, hava, toprak ve
-          piyasa verisini{" "}
-          <b style={{ color: "var(--text)" }}>tek parsel bazında</b> birleştirip
-          her gün sade Türkçe teşhis ve somut eylem üretir.
+          {c.introPre}
+          <b style={{ color: "var(--text)" }}>{c.introBold}</b>
+          {c.introPost}
         </Reveal>
 
         <div className="ciftci-compare">
@@ -109,7 +89,7 @@ export default function CiftciDogan() {
             style={{ padding: "clamp(24px,3vw,36px)", borderRadius: 20 }}
           >
             <div className="eyebrow eyebrow--2" style={{ marginBottom: 22 }}>
-              // HAM İSTATİSTİK DEĞİL, KARAR
+              {c.compareEyebrow}
             </div>
             <div
               style={{
@@ -136,7 +116,7 @@ export default function CiftciDogan() {
                     marginBottom: 14,
                   }}
                 >
-                  RAKİP PANELLER
+                  {c.rivalTitle}
                 </div>
                 <div
                   className="mono"
@@ -146,13 +126,11 @@ export default function CiftciDogan() {
                     color: "var(--faint2)",
                   }}
                 >
-                  vejetasyon&nbsp;&nbsp;0.45
-                  <br />
-                  nem&nbsp;indeksi&nbsp;&nbsp;0.12
-                  <br />
-                  biyokütle&nbsp;&nbsp;3.8
-                  <br />
-                  yüzey&nbsp;sıc.&nbsp;&nbsp;31°C
+                  {c.rivalLines.map((line) => (
+                    <div key={line} style={{ whiteSpace: "nowrap" }}>
+                      {line}
+                    </div>
+                  ))}
                 </div>
                 <div
                   style={{
@@ -162,7 +140,7 @@ export default function CiftciDogan() {
                     lineHeight: 1.5,
                   }}
                 >
-                  Ham veri. Yorum ve karar çiftçiye kalıyor.
+                  {c.rivalNote}
                 </div>
               </div>
               <div
@@ -188,7 +166,7 @@ export default function CiftciDogan() {
                     marginBottom: 14,
                   }}
                 >
-                  ÇİFTÇİ DOĞAN
+                  {c.brand}
                 </div>
                 <div
                   className="mono"
@@ -198,7 +176,7 @@ export default function CiftciDogan() {
                     marginBottom: 4,
                   }}
                 >
-                  TEŞHİS
+                  {c.diagLabel}
                 </div>
                 <div
                   style={{
@@ -208,7 +186,7 @@ export default function CiftciDogan() {
                     marginBottom: 14,
                   }}
                 >
-                  Bitki su stresine giriyor; 5 gün yağış görünmüyor.
+                  {c.diagText}
                 </div>
                 <div
                   className="mono"
@@ -218,12 +196,12 @@ export default function CiftciDogan() {
                     marginBottom: 4,
                   }}
                 >
-                  EYLEM
+                  {c.actionLabel}
                 </div>
                 <div
                   style={{ fontSize: 14, lineHeight: 1.5, color: "var(--text)" }}
                 >
-                  48 saat içinde sulama yapın; kuzey uca öncelik verin.
+                  {c.actionText}
                 </div>
               </div>
             </div>
@@ -276,7 +254,7 @@ export default function CiftciDogan() {
                     className="display"
                     style={{ fontWeight: 600, fontSize: 15 }}
                   >
-                    Çiftçi Doğan
+                    {c.botName}
                   </span>
                   <span
                     className="mono"
@@ -289,14 +267,14 @@ export default function CiftciDogan() {
                       color: "var(--accent-ink)",
                     }}
                   >
-                    BOT
+                    {c.botTag}
                   </span>
                 </div>
                 <div
                   className="mono"
                   style={{ fontSize: 11, color: "var(--faint)" }}
                 >
-                  bugün · 07:12
+                  {c.botTime}
                 </div>
               </div>
             </div>
@@ -312,14 +290,11 @@ export default function CiftciDogan() {
                 textWrap: "pretty",
               }}
             >
-              <b style={{ color: "var(--accent-ink)" }}>At Alanı</b> tarlanızda
-              arpa hasadı tamamlanmış. Radar ölçümleri tarlada hâlâ güçlü bir
-              biyokütle olduğunu doğruluyor — 15–20 Haziran&apos;daki optik
-              veriler büyük olasılıkla güvenilir değil.{" "}
-              <b style={{ color: "var(--text)" }}>
-                Arpa piyasa fiyatı: 11.514 TRY/ton
-              </b>{" "}
-              — hasat zamanlamasını değerlendirin.
+              {c.msgPre}
+              <b style={{ color: "var(--accent-ink)" }}>{c.msgBold1}</b>
+              {c.msgMid}
+              <b style={{ color: "var(--text)" }}>{c.msgBold2}</b>
+              {c.msgPost}
             </div>
             <div
               style={{
@@ -352,13 +327,13 @@ export default function CiftciDogan() {
               </span>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: 13, fontWeight: 600 }}>
-                  At_Alani_hasat_raporu.pdf
+                  {c.pdfFile}
                 </div>
                 <div
                   className="mono"
                   style={{ fontSize: 11, color: "var(--faint)" }}
                 >
-                  otomatik parsel raporu · 240 KB
+                  {c.pdfMeta}
                 </div>
               </div>
             </div>
@@ -373,19 +348,19 @@ export default function CiftciDogan() {
             marginTop: 24,
           }}
         >
-          {CARDS.map((c, i) => (
-            <Reveal key={c.n} delay={i * 0.08} className="card" style={{ padding: 26, borderRadius: 16 }}>
+          {CARDS.map((card, i) => (
+            <Reveal key={card.n} delay={i * 0.08} className="card" style={{ padding: 26, borderRadius: 16 }}>
               <div
                 className="mono"
-                style={{ fontSize: 12, color: c.accent, marginBottom: 12 }}
+                style={{ fontSize: 12, color: CARD_ACCENTS[i], marginBottom: 12 }}
               >
-                {c.n}
+                {card.n}
               </div>
               <div
                 className="display"
                 style={{ fontWeight: 600, fontSize: 18, marginBottom: 8 }}
               >
-                {c.title}
+                {card.title}
               </div>
               <div
                 style={{
@@ -394,7 +369,7 @@ export default function CiftciDogan() {
                   lineHeight: 1.55,
                 }}
               >
-                {c.desc}
+                {card.desc}
               </div>
             </Reveal>
           ))}
@@ -402,7 +377,7 @@ export default function CiftciDogan() {
 
         <Reveal style={{ marginTop: 56 }}>
           <div className="eyebrow" style={{ letterSpacing: "0.08em", marginBottom: 20 }}>
-            // ENTEGRE VERİ KAYNAKLARI
+            {c.sourcesEyebrow}
           </div>
           <div className="sources-grid">
             <div
@@ -440,7 +415,7 @@ export default function CiftciDogan() {
                     animation: "blink 1.6s infinite",
                   }}
                 />
-                UYDU VERİ AĞI · 7/24 AKIŞ
+                {c.orbitHud}
               </div>
             </div>
             <div

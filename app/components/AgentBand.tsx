@@ -1,33 +1,11 @@
-import Reveal from "./Reveal";
+"use client";
 
-const AGENTS = [
-  {
-    code: "AGT-01",
-    num: "I",
-    name: "Algı Agent'ı",
-    desc: "Çoklu sensör ve kamera verisini birleştirir, gürültüyü temizler, anlamlı sinyale dönüştürür.",
-  },
-  {
-    code: "AGT-02",
-    num: "II",
-    name: "Analiz Agent'ı",
-    desc: "Toprak besin değerleri, nem ve verim modellerini çalıştırarak durum çıkarımı yapar.",
-  },
-  {
-    code: "AGT-03",
-    num: "III",
-    name: "Karar Agent'ı",
-    desc: "Ekim önerisi ve rota planını üretir; aracın bir sonraki hamlesini belirler.",
-  },
-  {
-    code: "AGT-04",
-    num: "IV",
-    name: "Orkestratör",
-    desc: "Agent'lar arası iş akışını yönetir, çelişkileri çözer, güvenli otonomiyi garanti eder.",
-  },
-];
+import Reveal from "./Reveal";
+import { useT } from "../i18n/LangProvider";
 
 export default function AgentBand() {
+  const t = useT();
+  const AGENTS = t.agents.items;
   return (
     <section
       className="section band"
@@ -39,7 +17,7 @@ export default function AgentBand() {
       <div className="container">
         <Reveal style={{ maxWidth: 760 }}>
           <div className="eyebrow" style={{ marginBottom: 16 }}>
-            // YAPAY ZEKÂ MİMARİSİ
+            {t.agents.eyebrow}
           </div>
           <h2
             className="display"
@@ -50,8 +28,7 @@ export default function AgentBand() {
               textWrap: "balance",
             }}
           >
-            Sahadaki her karar, birlikte çalışan yapay zekâ agent&apos;larından
-            geçer.
+            {t.agents.h2}
           </h2>
           <p
             style={{
@@ -62,10 +39,7 @@ export default function AgentBand() {
               textWrap: "pretty",
             }}
           >
-            Sensör verisi, görüntü ve konum akışını gerçek zamanlı işleyen
-            agent&apos;lar; algılama, analiz ve karar adımlarını kendi
-            aralarında koordine ederek sahada otonom hareketi ve doğru tarımsal
-            öneriyi mümkün kılar.
+            {t.agents.p}
           </p>
         </Reveal>
         <div

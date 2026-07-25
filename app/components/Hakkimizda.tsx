@@ -1,27 +1,14 @@
-import Reveal from "./Reveal";
+"use client";
 
-const TIMELINE = [
-  {
-    n: "01",
-    accent: "var(--accent-ink)",
-    title: "Başlangıç: sahada uçuş",
-    desc: "İnsansız hava araçlarıyla tarımsal operasyonlar ve pilot eğitimi — sahayı ve çiftçiyi yakından tanıdık.",
-  },
-  {
-    n: "02",
-    accent: "var(--accent-ink)",
-    title: "Dönüşüm: veriden karara",
-    desc: "Uydu, hava ve toprak verisini yapay zekâ agent'larıyla işleyen karar sistemlerine yöneldik.",
-  },
-  {
-    n: "03",
-    accent: "var(--accent2-ink)",
-    title: "Bugün: otonom sistemler",
-    desc: "Porsuk sahada toprağı okuyor; Çiftçi Doğan her sabah parsel bazlı teşhis ve eylem üretiyor.",
-  },
-];
+import Reveal from "./Reveal";
+import { useT } from "../i18n/LangProvider";
+
+// Zaman çizelgesi accent renkleri metinden bağımsız; sıraya göre atanır.
+const TIMELINE_ACCENTS = ["var(--accent-ink)", "var(--accent-ink)", "var(--accent2-ink)"];
 
 export default function Hakkimizda() {
+  const t = useT();
+  const TIMELINE = t.hakkimizda.timeline;
   return (
     <section
       id="hakkimizda"
@@ -35,7 +22,7 @@ export default function Hakkimizda() {
       <div className="container hakkimizda-grid">
         <Reveal>
           <div className="eyebrow" style={{ marginBottom: 16 }}>
-            // HAKKIMIZDA
+            {t.hakkimizda.eyebrow}
           </div>
           <h2
             className="display"
@@ -46,7 +33,7 @@ export default function Hakkimizda() {
               textWrap: "balance",
             }}
           >
-            Gökten toprağa: veriden karara köprü kuruyoruz.
+            {t.hakkimizda.h2}
           </h2>
           <p
             style={{
@@ -57,10 +44,7 @@ export default function Hakkimizda() {
               textWrap: "pretty",
             }}
           >
-            Gökdoğan Teknoloji, sahada insansız hava operasyonlarıyla başladığı
-            yolculuğunu bugün yapay zekâ destekli akıllı tarım sistemlerine
-            taşıdı. Ham uydu pikseli ya da sensör istatistiği değil; çiftçinin o
-            gün vereceği kararın kendisini üretiyoruz.
+            {t.hakkimizda.p1}
           </p>
           <p
             style={{
@@ -71,14 +55,13 @@ export default function Hakkimizda() {
               textWrap: "pretty",
             }}
           >
-            Tüm yazılım ve yapay zekâ modellerimiz Türkiye&apos;de, kendi
-            ekibimizce geliştiriliyor.
+            {t.hakkimizda.p2}
           </p>
         </Reveal>
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-          {TIMELINE.map((t, i) => (
+          {TIMELINE.map((item, i) => (
             <Reveal
-              key={t.n}
+              key={item.n}
               delay={i * 0.08}
               className="card"
               style={{
@@ -92,19 +75,19 @@ export default function Hakkimizda() {
                 className="mono"
                 style={{
                   fontSize: 12,
-                  color: t.accent,
+                  color: TIMELINE_ACCENTS[i],
                   flex: "none",
                   paddingTop: 2,
                 }}
               >
-                {t.n}
+                {item.n}
               </span>
               <div>
                 <div
                   className="display"
                   style={{ fontWeight: 600, fontSize: 17, marginBottom: 5 }}
                 >
-                  {t.title}
+                  {item.title}
                 </div>
                 <div
                   style={{
@@ -113,7 +96,7 @@ export default function Hakkimizda() {
                     lineHeight: 1.55,
                   }}
                 >
-                  {t.desc}
+                  {item.desc}
                 </div>
               </div>
             </Reveal>

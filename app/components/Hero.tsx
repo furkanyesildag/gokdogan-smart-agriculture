@@ -1,6 +1,10 @@
+"use client";
+
 import SoilCanvas from "./SoilCanvas";
+import { useT } from "../i18n/LangProvider";
 
 export default function Hero() {
+  const t = useT();
   return (
     <header
       id="top"
@@ -73,7 +77,7 @@ export default function Hero() {
               animation: "blink 1.8s infinite",
             }}
           />
-          YAPAY ZEKÂ DESTEKLİ AKILLI TARIM
+          {t.hero.eyebrow}
         </div>
         <h1
           className="display"
@@ -86,8 +90,9 @@ export default function Hero() {
             maxWidth: 820,
           }}
         >
-          Toprağı <span style={{ color: "var(--hero-accent)" }}>okuyan</span>, tarımı
-          yeniden tasarlayan teknoloji.
+          {t.hero.h1Pre}
+          <span style={{ color: "var(--hero-accent)" }}>{t.hero.h1Accent}</span>
+          {t.hero.h1Post}
         </h1>
         <div
           className="mono"
@@ -103,15 +108,15 @@ export default function Hero() {
             textTransform: "uppercase",
           }}
         >
-          <span>Otonom kara aracı</span>
+          <span>{t.hero.pipe1}</span>
           <span style={{ color: "var(--hero-sep)" }} aria-hidden>
             |
           </span>
-          <span>Uydu platformu</span>
+          <span>{t.hero.pipe2}</span>
           <span style={{ color: "var(--hero-sep)" }} aria-hidden>
             |
           </span>
-          <span style={{ color: "var(--hero-eyebrow)" }}>Tek ekosistem</span>
+          <span style={{ color: "var(--hero-eyebrow)" }}>{t.hero.pipe3}</span>
         </div>
         <p
           style={{
@@ -123,17 +128,16 @@ export default function Hero() {
             textWrap: "pretty",
           }}
         >
-          Yerli ve özgün yapay zekâ sistemlerimizle üretiyoruz. Otonom kara
-          aracımız <b style={{ color: "var(--hero-text)" }}>Porsuk</b>, tarlayı tek
-          başına gezer, toprağı sensörleriyle analiz eder ve neyin
-          ekilebileceğine karar verir.
+          {t.hero.pPre}
+          <b style={{ color: "var(--hero-text)" }}>{t.hero.pBrand}</b>
+          {t.hero.pPost}
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 14 }}>
           <a href="#porsuk" className="btn btn-hero-primary">
-            Porsuk&apos;u keşfet →
+            {t.hero.ctaPrimary}
           </a>
           <a href="#iletisim" className="btn btn-hero-ghost">
-            İletişime geç
+            {t.hero.ctaGhost}
           </a>
         </div>
         <div
@@ -144,11 +148,7 @@ export default function Hero() {
             flexWrap: "wrap",
           }}
         >
-          {[
-            ["%100", "YERLİ & ÖZGÜN"],
-            ["7/24", "OTONOM SAHA"],
-            ["AI", "AGENT MİMARİSİ"],
-          ].map(([big, small]) => (
+          {t.hero.stats.map(({ big, small }) => (
             <div key={small}>
               <div
                 className="display"
