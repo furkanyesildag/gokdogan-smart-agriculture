@@ -12,8 +12,8 @@ export default function Hero() {
         borderBottom: "1px solid var(--hair)",
       }}
     >
-      <SoilCanvas />
       <div
+        className="hero-veil-el"
         style={{
           position: "absolute",
           inset: 0,
@@ -22,6 +22,7 @@ export default function Hero() {
         }}
       />
       <div
+        className="hero-veil-el"
         style={{
           position: "absolute",
           left: 0,
@@ -33,8 +34,10 @@ export default function Hero() {
         }}
       />
       <div
+        className="hero-content"
         style={{
           position: "relative",
+          zIndex: 1,
           maxWidth: 1440,
           margin: "0 auto",
           padding:
@@ -166,6 +169,9 @@ export default function Hero() {
             </div>
           ))}
         </div>
+      </div>
+      <div className="hero-canvas-wrap">
+        <SoilCanvas />
       </div>
     </header>
   );

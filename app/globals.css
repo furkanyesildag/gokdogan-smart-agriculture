@@ -497,10 +497,27 @@ a:hover {
   transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
 }
 
-/* mobilde hero canvas'ını gizle — metinle çakışmasın, sade kalsın
-   (!important çünkü canvas'ın inline display:block stili var) */
+/* hero canvas: masaüstünde full-bleed arka plan; mobilde metnin altında
+   ayrı bir blok (çakışma yok, rover yine görünür ve hareket eder) */
+.hero-canvas-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
 @media (max-width: 768px) {
-  .hero-canvas { display: none !important; }
+  .hero-content {
+    min-height: auto !important;
+    padding-bottom: clamp(16px, 4vw, 28px) !important;
+  }
+  .hero-veil-el {
+    display: none;
+  }
+  .hero-canvas-wrap {
+    position: relative;
+    inset: auto;
+    height: clamp(240px, 56vw, 330px);
+    border-top: 1px solid var(--hair);
+  }
 }
 
 /* diamond bullet */
