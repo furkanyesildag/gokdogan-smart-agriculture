@@ -497,9 +497,10 @@ a:hover {
   transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
 }
 
-/* hero rover lejantı — dar ekranda gizle (canvas alanı küçülüyor) */
-@media (max-width: 900px) {
-  .hero-legend { display: none; }
+/* mobilde hero canvas'ını gizle — metinle çakışmasın, sade kalsın
+   (!important çünkü canvas'ın inline display:block stili var) */
+@media (max-width: 768px) {
+  .hero-canvas { display: none !important; }
 }
 
 /* diamond bullet */

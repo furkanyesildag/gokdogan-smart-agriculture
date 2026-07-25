@@ -1,5 +1,4 @@
 import SoilCanvas from "./SoilCanvas";
-import HeroTelemetry from "./HeroTelemetry";
 
 export default function Hero() {
   return (
@@ -168,47 +167,6 @@ export default function Hero() {
           ))}
         </div>
       </div>
-      {/* rover çıktısı lejantı — canvas'ın ürettiği renkli iz ne demek (EOSDA dersi) */}
-      <div
-        className="hero-legend"
-        style={{
-          position: "absolute",
-          top: "clamp(88px,12vh,132px)",
-          right: "clamp(20px,5vw,64px)",
-          display: "flex",
-          flexDirection: "column",
-          gap: 7,
-          fontFamily: "var(--font-mono), monospace",
-          fontSize: 10.5,
-          letterSpacing: "0.06em",
-          color: "var(--hero-pipe)",
-          pointerEvents: "none",
-          textAlign: "right",
-          alignItems: "flex-end",
-        }}
-      >
-        <span style={{ color: "var(--hero-dim)", letterSpacing: "0.09em" }}>
-          PORSUK ÇIKTISI · TOPRAK VERİM HARİTASI
-        </span>
-        <span
-          style={{ display: "flex", alignItems: "center", gap: 8 }}
-          aria-hidden
-        >
-          <span>düşük</span>
-          <span
-            style={{
-              width: 88,
-              height: 7,
-              borderRadius: 2,
-              background:
-                "linear-gradient(90deg,rgb(255,128,40),rgb(120,175,150),rgb(23,199,224))",
-              boxShadow: "0 0 0 1px rgba(255,255,255,0.08)",
-            }}
-          />
-          <span>yüksek</span>
-        </span>
-      </div>
-      <HeroTelemetry />
     </header>
   );
 }

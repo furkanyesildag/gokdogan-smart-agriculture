@@ -278,6 +278,7 @@ export default function SoilCanvas() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
+      className="hero-canvas"
       style={{
         position: "absolute",
         inset: 0,
